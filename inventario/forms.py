@@ -5,17 +5,20 @@ from .models import Producto, MovimientoInventario
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        # Excluimos 'cuerpo' porque se asigna automáticamente en la vista
         exclude = ['cuerpo']
+        # CORRECCIÓN: Especificamos el widget y el formato para el campo de fecha.
+        widgets = {
+            'fecha_adquisicion': forms.DateInput(
+                format='%Y-%m-%d', # Formato AAAA-MM-DD
+                attrs={'type': 'date'} # Asegura que sea un campo de fecha HTML5
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super(ProductoForm, self).__init__(*args, **kwargs)
-        # Este bucle añade la clase 'form-control' de Bootstrap a todos los campos
+        # Este bucle añade la clase 'form-control' de Bootstrap a todos los campos.
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            # Hacemos que el campo de fecha use el widget de fecha de HTML5
-            if isinstance(field.widget, forms.DateInput):
-                field.widget.input_type = 'date'
+            field.widget.attrs.setdefault('class', 'form-control')
 
 class MovimientoForm(forms.ModelForm):
     class Meta:

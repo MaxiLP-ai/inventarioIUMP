@@ -84,3 +84,23 @@ def generar_pdf_inventario(request, cuerpo_id):
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="inventario_{cuerpo.nombre.lower()}_{timezone.now().strftime("%Y-%m-%d")}.pdf"'
     return response
+
+
+# ==============================================================================
+# VISTA TEMPORAL PARA CREAR SUPERUSUARIO
+# ==============================================================================
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+def crear_superusuario_temporal(request):
+    # ¡CAMBIA ESTOS VALORES POR LOS QUE TÚ QUIERAS!
+    username = "admin"
+    password = "unacontrasenasegura"
+    email = "tu_correo@ejemplo.com"
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(username=username, password=password, email=email)
+        return HttpResponse("<h1>Superusuario creado exitosamente.</h1><p>Por favor, elimina la URL y la vista de tu código ahora mismo.</p>")
+    else:
+        return HttpResponse("<h1>El superusuario ya existe.</h1>")

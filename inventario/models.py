@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 class Cuerpo(models.Model):
     nombre = models.CharField(max_length=100, unique=True, verbose_name="Nombre del Cuerpo")
     descripcion = models.TextField(blank=True, null=True, verbose_name="Descripción")
-    imagen = CloudinaryField(default='v1721544336/default_cuerpo_wimnux.png', verbose_name="Imagen del Cuerpo")
+    imagen = CloudinaryField(default='default_ajqgij', verbose_name="Imagen del Cuerpo")
 
     def __str__(self):
         return self.nombre
@@ -25,7 +25,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=200, verbose_name="Nombre del Producto")
     descripcion = models.TextField(verbose_name="Descripción Detallada", null=True ,default='Sin Descripción' )
     cantidad = models.PositiveIntegerField(default=0, verbose_name="Cantidad en Stock")
-    imagen = CloudinaryField(default='v1721544336/default_producto_yq1xou.png', verbose_name="Imagen del Producto")
+    imagen = CloudinaryField(default='default_ajqgij', verbose_name="Imagen del Producto")
     ubicacion = models.CharField(max_length=150, blank=True, null=True, verbose_name="Ubicación Física")
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='Bueno', verbose_name="Estado del Producto")
     fecha_adquisicion = models.DateField(default=timezone.now, verbose_name="Fecha de Adquisición")

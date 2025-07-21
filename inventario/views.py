@@ -95,9 +95,9 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 def crear_superusuario_temporal(request):
     # ¡CAMBIA ESTOS VALORES POR LOS QUE TÚ QUIERAS!
-    username = "admin"
-    password = "unacontrasenasegura"
-    email = "tu_correo@ejemplo.com"
+    username = "iumpadmin"
+    password = "iglesiaunida1978"
+    email = "renatomaxi2005@gmail.com"
 
     if not User.objects.filter(username=username).exists():
         User.objects.create_superuser(username=username, password=password, email=email)

@@ -1,0 +1,17 @@
+# Entorno virtual
+venv/
+
+# Archivos de base de datos SQLite
+*.sqlite3
+db.sqlite3
+
+# Archivos de medios subidos por los usuarios
+/media/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/

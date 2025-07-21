@@ -1,0 +1,34 @@
+{% extends 'inventario/base.html' %}
+
+{% block title %}Seleccionar Cuerpo{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4">Seleccione un Cuerpo</h1>
+    <p class="lead text-muted">Haga clic en un cuerpo para ver y administrar su inventario.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for cuerpo in cuerpos %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ cuerpo.imagen.url }}" class="card-img-top" alt="Imagen de {{ cuerpo.nombre }}">
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ cuerpo.nombre }}</h5>
+                <p class="card-text text-muted">{{ cuerpo.descripcion|default:"Sin descripción." }}</p>
+                <a href="{% url 'inventario:detalle_inventario' cuerpo.id %}" class="btn btn-primary stretched-link">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                    Ver Inventario
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            No hay cuerpos registrados. Por favor, agregue uno desde el <a href="/admin/">panel de administración</a>.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

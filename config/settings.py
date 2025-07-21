@@ -35,12 +35,14 @@ if RENDER_EXTERNAL_HOSTNAME:
 # ==============================================================================
 
 INSTALLED_APPS = [
+    'cloudinary_storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary', 
     'inventario',
 ]
 
@@ -121,6 +123,18 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Configuración para que Whitenoise maneje los archivos estáticos en producción.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ==============================================================================
+# CONFIGURACIÓN DE CLOUDINARY PARA ALMACENAMIENTO DE MEDIOS
+# ==============================================================================
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+# Usa Cloudinary para los archivos de medios (imágenes subidas)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -110,19 +110,23 @@ USE_TZ = True
 
 
 # ==============================================================================
-# ARCHIVOS ESTÁTICOS Y DE MEDIOS
+# ARCHIVOS ESTÁTICOS Y DE MEDIOS (CONFIGURACIÓN DEFINITIVA)
 # ==============================================================================
 
 STATIC_URL = 'static/'
-# Esta línea es para desarrollo local, no afecta a producción.
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Esta línea asegura que Whitenoise pueda comprimir y cachear los archivos de forma eficiente.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Se elimina la variable STATICFILES_DIRS para evitar confusiones, ya que no
+# tenemos una carpeta 'static' propia. Django encontrará los archivos del admin
+# automáticamente.
 
 MEDIA_URL = '/media/'
+# La siguiente línea no es necesaria en producción porque usamos Cloudinary,
+# pero la dejamos para mantener la compatibilidad en desarrollo local.
 MEDIA_ROOT = BASE_DIR / 'media'
-
-# Configuración para que Whitenoise maneje los archivos estáticos en producción.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ==============================================================================
 # CONFIGURACIÓN DE CLOUDINARY PARA ALMACENAMIENTO DE MEDIOS
@@ -133,8 +137,6 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
-# Usa Cloudinary para los archivos de medios (imágenes subidas)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
